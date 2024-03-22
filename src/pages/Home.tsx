@@ -52,9 +52,11 @@ export default function Home() {
     <main className="h-full w-full border">
       <Header score={state.score} />
 
-      {!state.playerChoice && <Play dispatchEvent={dispatch} />}
+      <div className="mx-auto mt-10 max-w-[500px] text-center">
+        {!state.playerChoice && <Play dispatchEvent={dispatch} />}
 
-      {state.playerChoice && <Game dispatchEvent={dispatch} />}
+        {state.playerChoice && <Game dispatchEvent={dispatch} />}
+      </div>
     </main>
   );
 }
