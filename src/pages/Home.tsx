@@ -2,25 +2,35 @@ import { useReducer } from 'react';
 import Game from '../components/Game';
 import { Header } from '../components/Header';
 import { Play } from '../components/Play';
-import { GameAction } from '../types/GameAction';
-import { GameState } from '../types/GameState';
+import { GameAction, GameState } from '../types/GameAction';
 
 function reducer(state: GameState, action: GameAction): GameState {
   switch (action.type) {
-    case 'INCREMENT_SCORE':
+    case 'INCREMENT_PLAYER_SCORE':
       return {
         ...state,
-        score: state.score + 1,
+        playerScore: state.playerScore + 1,
       };
 
-    case 'DECREMENT_SCORE':
+    case 'INCREMENT_MACHINE_SCORE':
       return {
         ...state,
-        score: state.score - 1,
+        machineScore: state.machineScore + 1,
       };
 
-    case 'RESET_GAME':
-      return initialGameState;
+    case 'SET_WINNER':
+      return {
+        ...state,
+        winner: action.winner,
+      };
+
+    case 'TRY_AGAIN':
+      return {
+        ...state,
+        winner: null,
+        machineChoice: null,
+        playerChoice: null,
+      };
 
     case 'SET_MACHINE_CHOICE':
       return {
@@ -40,9 +50,11 @@ function reducer(state: GameState, action: GameAction): GameState {
 }
 
 const initialGameState: GameState = {
-  score: 0,
+  playerScore: 0,
+  machineScore: 0,
   playerChoice: null,
   machineChoice: null,
+  winner: null,
 };
 
 export default function Home() {
@@ -50,12 +62,21 @@ export default function Home() {
 
   return (
     <main className="h-full w-full border">
-      <Header score={state.score} />
+      <Header
+        scores={{
+          player: state.playerScore,
+          machine: state.machineScore,
+        }}
+      />
 
       <div className="mx-auto mt-10 max-w-[500px] text-center">
-        {!state.playerChoice && <Play dispatchEvent={dispatch} />}
+        {!state.playerChoice && !state.winner && (
+          <Play dispatchEvent={dispatch} />
+        )}
 
-        {state.playerChoice && <Game dispatchEvent={dispatch} />}
+        {state.playerChoice && (
+          <Game gameState={state} dispatchEvent={dispatch} />
+        )}
       </div>
     </main>
   );
