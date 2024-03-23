@@ -1,6 +1,5 @@
 import { useCallback, useEffect } from 'react';
 import { GameAction, GameState } from '../types/GameAction';
-import { GameOption } from '../types/GameOption';
 type GameProps = {
   dispatchEvent: React.Dispatch<GameAction>;
   gameState: GameState;
@@ -9,17 +8,7 @@ type GameProps = {
 export default function Game({ dispatchEvent, gameState }: GameProps) {
   const { playerChoice, machineChoice, winner } = gameState;
 
-  const machinePlay = useCallback(() => {
-    const options: GameOption[] = ['rock', 'paper', 'scissors'];
-    const randomIndex = Math.floor(Math.random() * options.length);
-    const machineChoice = options[randomIndex];
-
-    dispatchEvent({ type: 'SET_MACHINE_CHOICE', option: machineChoice });
-  }, [dispatchEvent]);
-
   const getResult = useCallback(() => {
-    machinePlay();
-
     if (playerChoice === 'paper' && machineChoice === 'paper') {
       dispatchEvent({ type: 'SET_WINNER', winner: 'draw' });
     } else if (playerChoice === 'paper' && machineChoice === 'rock') {
@@ -47,7 +36,7 @@ export default function Game({ dispatchEvent, gameState }: GameProps) {
     } else {
       dispatchEvent({ type: 'SET_WINNER', winner: 'draw' });
     }
-  }, [dispatchEvent, playerChoice, machineChoice, machinePlay]);
+  }, [dispatchEvent, playerChoice, machineChoice]);
 
   useEffect(() => {
     getResult();
