@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { GameAction } from '../types/GameAction';
 import { GameOption } from '../types/GameOption';
 import { sleep } from '../utils/sleep';
@@ -14,25 +14,17 @@ type PlayProps = {
 };
 
 export function Play({ dispatchEvent }: PlayProps) {
-  const [selectedPlayerChoice, setSelectedPlayerChoice] =
-    useState<GameOption | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  function handlePlayerChoice(option: GameOption) {
-    setSelectedPlayerChoice(option);
-  }
-
-  async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
+  async function handlePlayerChoice(playerOption: GameOption) {
     setIsLoading(true);
     await sleep(1000);
     setIsLoading(false);
 
-    if (selectedPlayerChoice) {
+    if (playerOption) {
       dispatchEvent({
         type: 'SET_PLAYER_CHOICE',
-        option: selectedPlayerChoice,
+        option: playerOption,
       });
 
       const options: GameOption[] = ['rock', 'paper', 'scissors'];
@@ -51,8 +43,7 @@ export function Play({ dispatchEvent }: PlayProps) {
         <h2>Choose one:</h2>
       </div>
 
-      <form
-        onSubmit={handleFormSubmit}
+      <div
         className={`flex items-center justify-center gap-4 ${isLoading && 'pointer-events-none'}`}
       >
         <Tooltip content="Rock">
@@ -81,7 +72,7 @@ export function Play({ dispatchEvent }: PlayProps) {
             onPlayerChoice={handlePlayerChoice}
           />
         </Tooltip>
-      </form>
+      </div>
 
       {isLoading && <Spinner />}
     </div>

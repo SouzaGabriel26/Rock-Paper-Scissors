@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { GameOption } from '../types/GameOption';
 
 type OptionProps = {
@@ -14,21 +13,25 @@ export function Option({
   onPlayerChoice,
   disabled,
 }: OptionProps) {
-  const [isSelected, setIsSelected] = useState(false);
-
   function handleClick() {
-    setIsSelected(true);
     onPlayerChoice(value);
   }
 
   return (
     <div className="relative">
       <span
-        className={`absolute -top-2.5 -z-10 w-0 origin-center scale-0 transform rounded-full bg-slate-100 transition-all duration-100 ${isSelected && 'h-24 w-24 scale-100'}`}
-      ></span>
-      <button type="submit" onClick={handleClick} disabled={disabled}>
+        className={`absolute -top-2.5 left-0 -z-10 w-0 origin-center scale-0 transform rounded-full bg-slate-100 transition-all duration-100 has-[:checked]:h-24 has-[:checked]:w-24 has-[:checked]:scale-100`}
+      >
+        <input type="checkbox" id={value} className="hidden" />
+      </span>
+
+      <label
+        className={`cursor-pointer ${disabled && 'cursor-not-allowed'}`}
+        onClick={handleClick}
+        htmlFor={value}
+      >
         {children}
-      </button>
+      </label>
     </div>
   );
 }
