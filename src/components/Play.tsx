@@ -14,11 +14,12 @@ type PlayProps = {
 };
 
 export function Play({ dispatchEvent }: PlayProps) {
-  const [playerChoice, setPlayerChoice] = useState<GameOption | null>(null);
+  const [selectedPlayerChoice, setSelectedPlayerChoice] =
+    useState<GameOption | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   function handlePlayerChoice(option: GameOption) {
-    setPlayerChoice(option);
+    setSelectedPlayerChoice(option);
   }
 
   async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
@@ -28,8 +29,19 @@ export function Play({ dispatchEvent }: PlayProps) {
     await sleep(1000);
     setIsLoading(false);
 
-    if (playerChoice) {
-      dispatchEvent({ type: 'SET_PLAYER_CHOICE', option: playerChoice });
+    if (selectedPlayerChoice) {
+      dispatchEvent({
+        type: 'SET_PLAYER_CHOICE',
+        option: selectedPlayerChoice,
+      });
+
+      const options: GameOption[] = ['rock', 'paper', 'scissors'];
+      const randomIndex = Math.floor(Math.random() * options.length);
+      const selectedMachineChoice = options[randomIndex];
+      dispatchEvent({
+        type: 'SET_MACHINE_CHOICE',
+        option: selectedMachineChoice,
+      });
     }
   }
 
