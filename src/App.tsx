@@ -1,7 +1,12 @@
-import Home from './pages/Home';
+import { GameProvider } from './contexts/GameContext';
+import { Router } from './router';
 
 export function App() {
-  return <Home />;
+  return (
+    <GameProvider>
+      <Router />
+    </GameProvider>
+  );
 }
 
 export default App;
