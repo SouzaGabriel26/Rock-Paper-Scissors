@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { GameAction } from '../types/GameAction';
+import { useNavigate } from 'react-router-dom';
+import { useGameContext } from '../hooks/useGameContext';
 import { GameOption } from '../types/GameOption';
 import { sleep } from '../utils/sleep';
 import { Option } from './Option';
@@ -9,11 +10,9 @@ import { HandFist } from './icons/HandFirst';
 import { HandOpen } from './icons/HandOpen';
 import { HandScissors } from './icons/HandScissors';
 
-type PlayProps = {
-  dispatchEvent: React.Dispatch<GameAction>;
-};
-
-export function Play({ dispatchEvent }: PlayProps) {
+export function Play() {
+  const { dispatch } = useGameContext();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   async function handlePlayerChoice(playerOption: GameOption) {
@@ -22,7 +21,7 @@ export function Play({ dispatchEvent }: PlayProps) {
     setIsLoading(false);
 
     if (playerOption) {
-      dispatchEvent({
+      dispatch({
         type: 'SET_PLAYER_CHOICE',
         option: playerOption,
       });
@@ -30,16 +29,18 @@ export function Play({ dispatchEvent }: PlayProps) {
       const options: GameOption[] = ['rock', 'paper', 'scissors'];
       const randomIndex = Math.floor(Math.random() * options.length);
       const selectedMachineChoice = options[randomIndex];
-      dispatchEvent({
+      dispatch({
         type: 'SET_MACHINE_CHOICE',
         option: selectedMachineChoice,
       });
     }
+
+    navigate('/game');
   }
 
   return (
     <div>
-      <div className="mb-6 text-2xl text-slate-800">
+      <div className="mb-6 text-center text-2xl text-slate-800">
         <h2>Choose one:</h2>
       </div>
 
