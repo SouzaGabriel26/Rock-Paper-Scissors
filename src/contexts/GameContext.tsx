@@ -1,8 +1,12 @@
-import { useReducer } from 'react';
-import Game from '../components/Game';
-import { Header } from '../components/Header';
-import { Play } from '../components/Play';
+import { createContext, useReducer } from 'react';
 import { GameAction, GameState } from '../types/GameAction';
+
+type GameContextType = {
+  state: GameState;
+  dispatch: React.Dispatch<GameAction>;
+};
+
+export const GameContext = createContext({} as GameContextType);
 
 function reducer(state: GameState, action: GameAction): GameState {
   switch (action.type) {
@@ -57,27 +61,17 @@ const initialGameState: GameState = {
   winner: null,
 };
 
-export default function Home() {
+export function GameProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialGameState);
 
   return (
-    <main className="h-full w-full border">
-      <Header
-        scores={{
-          player: state.playerScore,
-          machine: state.machineScore,
-        }}
-      />
-
-      <div className="mx-auto mt-10 max-w-[500px] text-center">
-        {!state.playerChoice && !state.winner && (
-          <Play dispatchEvent={dispatch} />
-        )}
-
-        {state.playerChoice && (
-          <Game gameState={state} dispatchEvent={dispatch} />
-        )}
-      </div>
-    </main>
+    <GameContext.Provider
+      value={{
+        state,
+        dispatch,
+      }}
+    >
+      {children}
+    </GameContext.Provider>
   );
 }
