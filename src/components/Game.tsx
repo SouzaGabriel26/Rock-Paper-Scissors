@@ -1,14 +1,19 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGameContext } from '../hooks/useGameContext';
 
 export default function Game() {
-  const { state, dispatch } = useGameContext();
-  const { playerChoice, machineChoice, winner } = state;
+  const { dispatch, machineChoice, playerChoice, state } = useGameContext();
+  const resultAlreadyCalculated = useRef(false);
 
   const navigate = useNavigate();
 
   const getResult = useCallback(() => {
+    if (resultAlreadyCalculated.current) return;
+
+    resultAlreadyCalculated.current = true;
+
+    console.log('getResult');
     if (playerChoice === 'paper' && machineChoice === 'paper') {
       dispatch({ type: 'SET_WINNER', winner: 'draw' });
     } else if (playerChoice === 'paper' && machineChoice === 'rock') {
@@ -39,8 +44,10 @@ export default function Game() {
   }, [dispatch, playerChoice, machineChoice]);
 
   useEffect(() => {
+    if (!playerChoice || !machineChoice) navigate('/', { replace: true });
+
     getResult();
-  }, [getResult]);
+  }, [getResult, navigate, playerChoice, machineChoice]);
 
   return (
     <div className="text-center">
@@ -54,7 +61,7 @@ export default function Game() {
         <span>{machineChoice}</span>
       </div>
 
-      <div>{winner && <p>{winner}</p>}</div>
+      <div>{state.winner && <p>{state.winner}</p>}</div>
 
       <button
         onClick={() => {

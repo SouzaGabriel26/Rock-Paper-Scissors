@@ -4,6 +4,8 @@ import { GameAction, GameState } from '../types/GameAction';
 type GameContextType = {
   state: GameState;
   dispatch: React.Dispatch<GameAction>;
+  playerChoice: 'rock' | 'paper' | 'scissors' | null;
+  machineChoice: 'rock' | 'paper' | 'scissors' | null;
 };
 
 export const GameContext = createContext({} as GameContextType);
@@ -69,6 +71,8 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
       value={{
         state,
         dispatch,
+        machineChoice: state.machineChoice,
+        playerChoice: state.playerChoice,
       }}
     >
       {children}
