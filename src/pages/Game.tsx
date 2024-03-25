@@ -5,7 +5,8 @@ import { Tooltip } from '../components/Tooltip';
 import { useGameContext } from '../hooks/useGameContext';
 
 export default function Game() {
-  const { dispatch, machineChoice, playerChoice, state } = useGameContext();
+  const { dispatch, state } = useGameContext();
+  const { machineChoice, playerChoice } = state;
   const resultAlreadyCalculated = useRef(false);
 
   const navigate = useNavigate();
