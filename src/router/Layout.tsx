@@ -3,12 +3,12 @@ import { Header } from '../components/Header';
 
 export function Layout() {
   return (
-    <main>
+    <div className="h-full">
       <Header />
 
-      <div className="mx-auto max-w-[600px]">
+      <main className="mx-auto mt-32 max-w-[600px]">
         <Outlet />
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }

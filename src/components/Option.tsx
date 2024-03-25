@@ -1,24 +1,27 @@
+import { ComponentProps } from 'react';
 import { GameOption } from '../types/GameOption';
+import { HandFist } from './icons/HandFirst';
+import { HandOpen } from './icons/HandOpen';
+import { HandScissors } from './icons/HandScissors';
 
 type OptionProps = {
-  children: React.ReactNode;
   value: GameOption;
-  onPlayerChoice: (value: GameOption) => void;
-  disabled: boolean;
-};
+  onPlayerChoice?: (value: GameOption) => void;
+  disabled?: boolean;
+} & ComponentProps<'div'>;
 
 export function Option({
-  children,
   value,
   onPlayerChoice,
   disabled,
+  ...props
 }: OptionProps) {
   function handleClick() {
-    onPlayerChoice(value);
+    onPlayerChoice?.(value);
   }
 
   return (
-    <div className="relative">
+    <div className="relative" {...props}>
       <span
         className={`absolute -top-2.5 left-0 -z-10 w-0 origin-center scale-0 transform rounded-full bg-slate-100 transition-all duration-100 has-[:checked]:h-24 has-[:checked]:w-24 has-[:checked]:scale-100`}
       >
@@ -30,7 +33,9 @@ export function Option({
         onClick={handleClick}
         htmlFor={value}
       >
-        {children}
+        {value === 'rock' && <HandFist />}
+        {value === 'paper' && <HandOpen />}
+        {value === 'scissors' && <HandScissors />}
       </label>
     </div>
   );

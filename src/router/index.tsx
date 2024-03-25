@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Game from '../components/Game';
-import { Play } from '../components/Play';
+import Game from '../pages/Game';
+import { Play } from '../pages/Play';
 import { Layout } from './Layout';
 
 export function Router() {
