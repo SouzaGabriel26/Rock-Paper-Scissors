@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { Option } from '../components/Option';
 import { Spinner } from '../components/Spinner';
@@ -8,9 +9,10 @@ import { GameOption } from '../types/GameOption';
 import { sleep } from '../utils/sleep';
 
 export function Play() {
-  const { dispatch } = useGameContext();
+  const { dispatch, checkPlayerChoice, setPlayerChoice } = useGameContext();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [rockOptionError, setRockOptionError] = useState(false);
 
   async function handlePlayerChoice(playerOption: GameOption) {
     setIsLoading(true);
@@ -18,10 +20,14 @@ export function Play() {
     setIsLoading(false);
 
     if (playerOption) {
-      dispatch({
-        type: 'SET_PLAYER_CHOICE',
-        option: playerOption,
-      });
+      const playerChoice = checkPlayerChoice(playerOption);
+
+      if (!playerChoice.ok) {
+        setRockOptionError(true);
+        return toast.error(playerChoice.message ?? 'Invalid option');
+      }
+
+      setPlayerChoice(playerOption);
 
       const options: GameOption[] = ['rock', 'paper', 'scissors'];
       const randomIndex = Math.floor(Math.random() * options.length);
@@ -48,6 +54,7 @@ export function Play() {
           <Option
             value="rock"
             disabled={isLoading}
+            optionError={rockOptionError}
             onPlayerChoice={handlePlayerChoice}
           />
         </Tooltip>
