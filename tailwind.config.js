@@ -9,7 +9,7 @@ export default {
       keyframes: {
         'show-content-down': {
           '0%': {
-            transform: 'translateY(100%)',
+            transform: 'translateY(-100%)',
             opacity: 0,
           },
           '100%': {
@@ -17,9 +17,31 @@ export default {
             opacity: 1,
           },
         },
+        'show-content-right': {
+          '0%': {
+            transform: 'translateX(-100%)',
+            opacity: 0,
+          },
+          '100%': {
+            transform: 'translateX(0)',
+            opacity: 1,
+          },
+        },
+        'show-content-left': {
+          '0%': {
+            transform: 'translateX(100%)',
+            opacity: 0,
+          },
+          '100%': {
+            transform: 'translateX(0)',
+            opacity: 1,
+          },
+        }
       },
       animation: {
         'show-content-down': 'show-content-down 0.3s ease-in-out',
+        'show-content-right': 'show-content-right 0.3s ease-in-out',
+        'show-content-left': 'show-content-left 0.3s ease-in-out',
       }
     },
   },
