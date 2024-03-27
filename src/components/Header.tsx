@@ -4,7 +4,7 @@ export function Header() {
   const { state } = useGameContext();
 
   return (
-    <header className="flex items-center justify-between bg-gray-200 px-6 py-4 md:px-24 md:py-6">
+    <header className="flex items-center justify-between bg-slate-200 px-6 py-4 md:px-24 md:py-6">
       <h1 className="text-xl font-bold text-slate-800 md:text-2xl lg:text-4xl">
         Jan Ken Pon
       </h1>

@@ -17,6 +17,16 @@ export default {
             opacity: 1,
           },
         },
+        'show-content-up': {
+          '0%': {
+            transform: 'translateY(100%)',
+            opacity: 0,
+          },
+          '100%': {
+            transform: 'translateY(0)',
+            opacity: 1,
+          },
+        },
         'show-content-right': {
           '0%': {
             transform: 'translateX(-100%)',
@@ -40,6 +50,7 @@ export default {
       },
       animation: {
         'show-content-down': 'show-content-down 0.3s ease-in-out',
+        'show-content-up': 'show-content-up  0.2s ease-in-out',
         'show-content-right': 'show-content-right 0.3s ease-in-out',
         'show-content-left': 'show-content-left 0.3s ease-in-out',
       }
