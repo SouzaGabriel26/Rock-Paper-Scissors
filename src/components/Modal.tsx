@@ -26,7 +26,7 @@ export function Modal({ className, shouldRender, onClose }: ModalProps) {
           className,
         )}
       >
-        <div className="relative mx-auto w-[500px] animate-show-content-up rounded-md bg-slate-100 p-4">
+        <div className="relative mx-auto flex w-10/12 max-w-[500px] animate-show-content-up flex-col items-center justify-center rounded-md bg-slate-100 p-4">
           <h2 className="text-center text-2xl">⚠️ Rules</h2>
 
           <button
@@ -36,7 +36,7 @@ export function Modal({ className, shouldRender, onClose }: ModalProps) {
             X
           </button>
 
-          <div className="mt-2 flex flex-col items-center justify-center gap-4 rounded-md bg-slate-200 py-4">
+          <div className="mt-2 flex flex-col items-start justify-center gap-4 rounded-md bg-slate-200 px-4 py-4">
             <span className="text-slate-800">
               - Rock wins against Scissors.
             </span>
@@ -51,7 +51,7 @@ export function Modal({ className, shouldRender, onClose }: ModalProps) {
               - If both players select the same option, it's a draw.
             </span>
 
-            <p className="font-bold text-slate-800">
+            <p className="w-full text-center font-bold text-slate-800">
               **It's not permited to select rock twice in a row.**
             </p>
           </div>
