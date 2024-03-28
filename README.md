@@ -1,5 +1,7 @@
 # Rock-Paper-Scissors Game
 
+[Open preview](https://rock-paper-scissors-mu-six.vercel.app/)
+
 #### This is a simple implementation of the game "Rock, Paper, Scissors" implemented with the aim of learning and practice, trying to follow a development pattern.
 
 ## 🚀 Technologies used:
