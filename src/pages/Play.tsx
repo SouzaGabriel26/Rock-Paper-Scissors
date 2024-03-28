@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { CountDown } from '../components/Countdown';
 import { Option } from '../components/Option';
-import { Spinner } from '../components/Spinner';
 import { Tooltip } from '../components/Tooltip';
 import { useGameContext } from '../hooks/useGameContext';
 import { GameOption } from '../types/GameOption';
@@ -16,7 +16,7 @@ export function Play() {
 
   async function handlePlayerChoice(playerOption: GameOption) {
     setIsLoading(true);
-    await sleep(1000);
+    await sleep(3000);
     setIsLoading(false);
 
     if (playerOption) {
@@ -76,7 +76,7 @@ export function Play() {
         </Tooltip>
       </div>
 
-      {isLoading && <Spinner />}
+      {isLoading && <CountDown />}
     </div>
   );
 }
