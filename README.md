@@ -6,10 +6,12 @@
 
 ## 🚀 Technologies used:
 
-- **React**: Library to create user interfaces
-- **ViteJs**: Build tool for modern web development with blazing fast cold server start
-- **Typescript**: Superset of Javascript, with static types for better development experience
-- **TailwindCss**: Utility-first CSS framework for quickly building custom designs
+|🚀| Technologies                                                                                                                |
+| --- | ----------------------------------------------------------------------- |
+| **React** | Library to create user interfaces |
+| **ViteJs** | Build tool for modern web development with blazing fast cold server start |
+| **Typescript** | Superset of Javascript, with static types for better development experience |
+| **TailwindCss** | Opinionated code formatter to maintain consistent code style across the project |
 
 #### Related to developer experience:
 
@@ -61,7 +63,7 @@ To install and run the Rock-Paper-Scissors game locally, follow these steps:
 
 ## Project status
 
-It's almost deployed...
+Deployed: [live demo](https://rock-paper-scissors-mu-six.vercel.app/)
 
 ## 📑 License
 
